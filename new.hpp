@@ -1,36 +1,37 @@
+
+
 #include "pair.hpp"
+#include "functional_description.hpp"
 #include <iostream>
-#include "iterator.hpp"
 
 namespace ft {
     
-// Итератор вывода
+// // Итератор вывода
 
-struct output_iterator_tag;
+// struct output_iterator_tag;
 
-// Итератор ввода
+// // Итератор ввода
 
-struct input_iterator_tag;
+// struct input_iterator_tag;
 
-// Последовательный итератор ( однонаправленый, прямой )
+// // Последовательный итератор ( однонаправленый, прямой )
 
-struct forward_iterator_tag;
+// struct forward_iterator_tag;
 
-// Двунаправленный итератор
+// // Двунаправленный итератор
 
-struct bidirectional_iterator_tag;
+// struct bidirectional_iterator_tag;
 
-// Итератор произвольного доступа
+// // Итератор произвольного доступа
 
-struct random_access_iterator_tag;
+// struct random_access_iterator_tag;
 
-struct Int_iterator_tag;
+struct Int_iterator_tag {};
 
 typedef long int ptrdiff_t ;
 
 // Класс iterator прямого порядка
-template <class C, class T, class D = ptrdiff_t,
-		 class Pt = T* , class Rt = T&> struct iterator
+template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>  struct iterator
 	{
 		typedef C		iterator_category;
 		typedef T		value_type;
@@ -90,11 +91,11 @@ template <class C, class T, class D = ptrdiff_t,
 			return (x);
 		}
 
-	template <class T> inline
-		random_access_iterator_tag Iter_cat (const T*) {
-			random_access_iterator_tag x;
-			return (x);
-		}
+	// template <class T> inline
+	// 	random_access_iterator_tag Iter_cat (const T*) {
+	// 		random_access_iterator_tag x;
+	// 		return (x);
+	// 	}
 
     // INTEGER FUNCTION Iter_cat
 
@@ -170,7 +171,7 @@ template <class C, class T, class D = ptrdiff_t,
 		}
 
 	template <class InIt, class D> inline
-		void Distance2(InIt F, InIt L, D& N, input_iterator_tag){
+		void Distance2(InIt F, InIt L, D& N, ft::input_iterator_tag){
 			for(; F != L; ++F)
 				++N;
 		}
@@ -303,7 +304,7 @@ template <class C, class T, class D = ptrdiff_t,
 				explicit reverse_iterator(RanIt X)
 				:current(X) {}
 				RanIt base() const
-					{return (current)}
+					{return (current);}
 				template <class U>
 					reverse_iterator (const reverse_iterator<U>& X)
 					: current (X.base()){}
@@ -415,7 +416,7 @@ template <class C, class T, class D = ptrdiff_t,
 	{
 		public:
 		typedef Revbidit<BidIt> Myt;
-		typedef typename iterator_traits<BidIt>::difference_type;
+		typedef typename iterator_traits<BidIt>::difference_type D;
 		typedef typename iterator_traits<BidIt>::pointer Pt;	
 		typedef typename iterator_traits<BidIt>::reference Rt;
 		typedef BidIt iterator_type;
@@ -489,7 +490,7 @@ template <class C, class T, class D = ptrdiff_t,
 		typedef typename traits_type::int_type int_type;
 
 		istreambuf_iterator (streambuf_type *Sb = 0) throw ()
-			: Sbuf(sb), Got (Sb == 0) {}
+			: Sbuf(Sb), Got (Sb == 0) {}
 
 		istreambuf_iterator (istream_type& I) throw () 
 		: Sbuf(I.rdbuf()), Got(I.rdbuf() == 0) {}
@@ -522,8 +523,8 @@ template <class C, class T, class D = ptrdiff_t,
 				((Myt *)this)->Peek();
 			if (!X.Got)
 				((Myt *)&X)->Peek();
-			return Sbuf != 0 && X.Sbuf != 0 ||
-			Sbuf !=0 && X.Sbuf != 0 ;
+			return (Sbuf != 0 && X.Sbuf != 0) ||
+			(Sbuf !=0 && X.Sbuf != 0) ;
 		}
 
 		private:
@@ -569,7 +570,7 @@ template <class C, class T, class D = ptrdiff_t,
 	// TEMPLATE CLASS ostreambuf_iterator
 	template <class E, class Tr>
 		class ostreambuf_iterator
-			:public Outit 
+			: public Outit <void, void, void, void> // Перепроверь подставленные типы
 	{
 		public:
 		typedef ostreambuf_iterator<E, Tr> Myt;
@@ -578,7 +579,7 @@ template <class C, class T, class D = ptrdiff_t,
 		typedef std::basic_ostream<E, Tr> ostream_type;
 
 		ostreambuf_iterator (streambuf_type *Sb) throw ()
-		:Failed(false), Sbuf(sb) {}
+		:Failed(false), Sbuf(Sb) {}
 
 		ostreambuf_iterator (ostream_type& O) throw()
 		:Failed(false), Sbuf(O.rdbuf()) {}
@@ -666,7 +667,7 @@ template <class C, class T, class D = ptrdiff_t,
 	template<class InIt1, class InIt2> inline
 		bool lexicographical_compare(InIt1 F1, InIt1 L1,
 		InIt2 F2, InIt2 L2) {
-			for (; F1, != L1 && F2 != L2, ++F1, ++F2)
+			for (; F1 != L1 && F2 != L2; ++F1, ++F2)
 				if (*F1 < *F2)
 					return (true);
 				else if (*F2 < *F1)
@@ -677,7 +678,7 @@ template <class C, class T, class D = ptrdiff_t,
 	template<class InIt1, class InIt2, class Pr> inline
 		bool lexicographical_compare(InIt1 F1, InIt1 L1,
 		InIt2 F2, InIt2 L2, Pr P) {
-			for (; F1, != L1 && F2 != L2, ++F1, ++F2)
+			for (; F1 != L1 && F2 != L2; ++F1, ++F2)
 				if (P(*F1, *F2))
 					return (true);
 				else if (P(*F2,*F1))
