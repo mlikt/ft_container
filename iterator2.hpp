@@ -123,7 +123,7 @@ namespace ft {
 	
 		template <class C, class XI> inline
 			insert_iterator<C> inserter(C& X, XI I) {
-				return (insert_iterator<C>(X, C::iterator(I)));
+				return (insert_iterator<C> (X, I));		// C::iterator (I)
 			}
 
 	// TEMPLATE CLASS istream_iterator
@@ -154,7 +154,7 @@ namespace ft {
 					Getval();
 					return (*this);
 				}
-				Myt& operator ++ (int) {
+				Myt operator ++ (int) {
 					Myt Tmp = *this;
 					Getval();
 					return (Tmp);
@@ -254,12 +254,13 @@ namespace ft {
 		void Advance (BidIt &I, D N, bidirectional_iterator_tag){
 			for (; 0 < N; --N)
 				++I;
+			for (; N < 0; ++N)
+				--I;
 		}
 		
 	template <class RanIt, class D> inline
 		void Advance (RanIt &I, D N, random_access_iterator_tag){
-			for (; 0 < N; --N)
-				++I;
+			I += N;
 		}
 	
 	template <class It> inline

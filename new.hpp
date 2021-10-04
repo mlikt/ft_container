@@ -31,7 +31,8 @@ struct Int_iterator_tag {};
 typedef long int ptrdiff_t ;
 
 // Класс iterator прямого порядка
-template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>  struct iterator
+template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>  
+	struct iterator
 	{
 		typedef C		iterator_category;
 		typedef T		value_type;
@@ -57,8 +58,8 @@ template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>  
 		struct iterator_traits
 		{
 			typedef typename It::iterator_category iterator_category;
-			typedef typename It::valut_type value_type;
-			typedef typename It::distance_type distance_type;
+			typedef typename It::value_type value_type;
+			typedef typename It::difference_type difference_type;
 			typedef typename It::pointer pointer;
 			typedef typename It::reference reference;
 		};
@@ -69,7 +70,7 @@ template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>  
 		{
 			typedef random_access_iterator_tag iterator_category;
 			typedef T value_type;
-			typedef ptrdiff_t distance_type;
+			typedef ptrdiff_t difference_type;
 			typedef T *pointer;
 			typedef T& reference;
 		};
@@ -80,7 +81,7 @@ template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>  
 		{
 			typedef random_access_iterator_tag iterator_category;
 			typedef T value_type;
-			typedef ptrdiff_t distance_type;
+			typedef ptrdiff_t difference_type;
 			typedef T *pointer;
 			typedef T& reference;
 		};
@@ -342,12 +343,24 @@ template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>  
 					current -= N;
 					return (*this);
 				}
-				Myt operator -= (D N){
+
+				Myt operator + (D N) const {
+					return (Myt(current - N));
+				}
+
+				Myt operator - (D N) const {
 					return (Myt(current + N));
 				}
+
+				Myt& operator -= (D N) {
+					current += N;
+					return (*this);
+				}
+
 				Rt operator [] (D N) const {
 					return (*(*this + N));
 				}
+				
 				bool Lt (const Myt& Y) const {
 					return (Y.current < current);
 				}
@@ -366,6 +379,7 @@ template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>  
 				const reverse_iterator<RanIt>& Y) {
 					return (X.Mi(Y));
 				}
+
 
 	template <class RanIt> inline
 		bool operator == (const reverse_iterator<RanIt>& X,
@@ -511,10 +525,9 @@ template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>  
 		}
 
 		Myt operator ++ (int) {
-			Myt Tmp = *this;
-
 			if (!Got)
 				Peek();
+			Myt Tmp = *this;
 			Inc();
 			return (Tmp);
 		}
@@ -523,7 +536,7 @@ template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>  
 				((Myt *)this)->Peek();
 			if (!X.Got)
 				((Myt *)&X)->Peek();
-			return (Sbuf != 0 && X.Sbuf != 0) ||
+			return (Sbuf == 0 && X.Sbuf == 0) ||
 			(Sbuf !=0 && X.Sbuf != 0) ;
 		}
 
@@ -573,6 +586,7 @@ template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>  
 			: public Outit <void, void, void, void> // Перепроверь подставленные типы
 	{
 		public:
+		typedef	E char_type;
 		typedef ostreambuf_iterator<E, Tr> Myt;
 		typedef Tr traits_type;
 		typedef std::basic_streambuf<E, Tr> streambuf_type;
@@ -586,7 +600,7 @@ template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>  
 
 		Myt& operator = (E X) {
 			if (Sbuf == 0
-				|| traits_type::eq_int_type(Tr::eof(),
+				|| traits_type::eq_int_type(Tr::eof(), // std::traits_type::eq_int_type()
 					Sbuf->sputc(X)))
 				Failed = true;
 			return (*this);

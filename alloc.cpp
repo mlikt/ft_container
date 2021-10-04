@@ -11,6 +11,7 @@ int main ( void ) {
 
 	// allocator выделяет памяти больше чем запросим кратно 16-ти
 	// 1 - 16 байт , 17 - 32 байта
+	// Как и malloc  причина тому... https://en.wikipedia.org/wiki/Data_structure_alignment
 
 	ptrint = NULL;
 
@@ -21,5 +22,7 @@ int main ( void ) {
 	std::cout << &ptr << std::endl;
 	int a;
 	std::cin >> a;
+	return (0);
+
 	return (0);
 }

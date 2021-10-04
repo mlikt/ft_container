@@ -115,7 +115,7 @@ struct random_access_iterator_tag
 
 	// template <class RanIt> было, есть ли ошибка в этом?
 	template <class RanIt, class D>
-		reverse_iterator<RanIt> operator + (	D n,
+		reverse_iterator<RanIt> operator + (	D N,
 												const reverse_iterator<RanIt> &rhs ) ;
 
 	template <class C>
