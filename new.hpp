@@ -91,11 +91,11 @@ template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>  
 			return (x);
 		}
 
-	// template <class T> inline
-	// 	random_access_iterator_tag Iter_cat (const T*) {
-	// 		random_access_iterator_tag x;
-	// 		return (x);
-	// 	}
+	template <class T> inline
+		random_access_iterator_tag Iter_cat (const T*) {
+			random_access_iterator_tag x;
+			return (x);
+		}
 
     // INTEGER FUNCTION Iter_cat
 

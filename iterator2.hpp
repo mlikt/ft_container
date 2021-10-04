@@ -188,10 +188,83 @@ namespace ft {
 	// TEMPLATE CLASS ostream_iterator
 
 	template <class T, class E = char, class Tr = std::char_traits<E> >
-		class ostream_itertor
+		class ostream_iterator
 			: public Outit <void, void, void, void>
 		{
+			public:
+				typedef T value_type;
+				typedef E char_type;
+				typedef Tr traits_type;
+				typedef std::basic_ostream<E, Tr> ostream_type;
 
+				ostream_iterator (ostream_type& O, const E *D = 0)
+				: Ostr(&O), Delim(D) {}
+
+				ostream_iterator<T, E, Tr>& operator = (const T& X) {
+					*Ostr << X;
+					if (Delim != 0)
+						*Ostr << Delim;
+					return (*this);
+				}
+
+				ostream_iterator<T, E, Tr>& operator * () {
+					return (*this);
+				}
+
+				ostream_iterator<T, E, Tr>& operator ++ () {
+					return (*this);
+				}
+
+				ostream_iterator<T, E, Tr>& operator ++ (int) {
+					return (*this);
+				}
+
+			protected:
+				ostream_type *Ostr;
+				const E* Delim;
 		};
 
+	// TEMPLATE FUNCTION Val_type
+
+	template <class It> inline
+		typename iterator_traits<It>::value_type *Val_type(It){
+			return (0);
+		}
+
+	// TEMPLATE FUNCTION advince
+
+	template <class InIt, class D> inline
+		void advance (InIt& I, D N) {
+			Advance (I, N, Iter_cat(I));
+		}
+		
+	template <class InIt, class D> inline
+		void Advance (InIt &I, D N, input_iterator_tag){
+			for (; 0 < N; --N)
+				++I;
+		}
+		
+	template <class FwdIt, class D> inline
+		void Advance (FwdIt &I, D N, forward_iterator_tag){
+			for (; 0 < N; --N)
+				++I;
+		}
+		
+	template <class BidIt, class D> inline
+		void Advance (BidIt &I, D N, bidirectional_iterator_tag){
+			for (; 0 < N; --N)
+				++I;
+		}
+		
+	template <class RanIt, class D> inline
+		void Advance (RanIt &I, D N, random_access_iterator_tag){
+			for (; 0 < N; --N)
+				++I;
+		}
+	
+	template <class It> inline
+		typename iterator_traits<It>::difference_type
+			*Dist_type(It) {
+				return (0);
+			}
 }
