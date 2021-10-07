@@ -1,10 +1,13 @@
 #include <string>
 #include <iostream>
+
+
+
 // Кратко об объектах std::char_traits<class T>
 int main ( void ){
 
 	std::char_traits<int> cht0;
-
+	
 	std::char_traits<int>::off_type l;
 
 	int Int[5] = {1, 2, 3, 4, 5};

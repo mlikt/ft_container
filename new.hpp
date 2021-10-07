@@ -5,26 +5,6 @@
 #include <iostream>
 
 namespace ft {
-    
-// // Итератор вывода
-
-// struct output_iterator_tag;
-
-// // Итератор ввода
-
-// struct input_iterator_tag;
-
-// // Последовательный итератор ( однонаправленый, прямой )
-
-// struct forward_iterator_tag;
-
-// // Двунаправленный итератор
-
-// struct bidirectional_iterator_tag;
-
-// // Итератор произвольного доступа
-
-// struct random_access_iterator_tag;
 
 struct Int_iterator_tag {};
 
