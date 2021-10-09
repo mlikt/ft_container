@@ -5,7 +5,7 @@ namespace ft {
 	template<class T, class A = std::allocator<T> >
 		class vector {
 			public:
-				typedef A allocator_type;
+				typedef A							allocator_type;
 				typedef typename A::pointer			pointer;
 				typedef typename A::const_pointer	const_pointer;
 				typedef typename A::reference		reference;

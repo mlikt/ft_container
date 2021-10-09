@@ -8,15 +8,16 @@ namespace ft {
 			protected:
 				Vector_val(A Al = A())
 					: Alval(Al) { }
-			// typedef typename A::template rebind<T>::other Alty;
-			// Alty Alval;
-			typedef std::allocator<T> Alty;
+			typedef typename A::template rebind<T>::other Alty;
 			Alty Alval;
+			// typedef std::allocator<T> Alty;
+			// Alty Alval;
 		};
 
 	template <class T, class Ax = std::allocator<T> >
 		class vector: public Vector_val <T, Ax> {
 			public:
+				typedef Ax							allocator_type;
 				typedef vector<T, Ax>				Myt;
 				typedef Vector_val<T, Ax>			Mybase;
 				typedef	typename Mybase::Alty		A;
@@ -91,7 +92,7 @@ namespace ft {
 					else if (X.size() == 0)
 						Clear();
 					else if (X.size() <= size()) {
-						pointer Q = copy(X.begin(), X.End(), First);
+						pointer Q = Ucopy(X.begin(), X.end(), First);
 						Destroy(Q, Last);
 						Last = First + X.size();
 					}
@@ -224,11 +225,11 @@ namespace ft {
 				}
 
 				reference back(){
-					return(*end());
+					return(*(end() - 1));
 				}
 
 				const_reference back() const {
-					return(*end());
+					return(*(end() - 1));
 				}
 
 				void push_back(const T& X) {
@@ -495,6 +496,7 @@ namespace ft {
 							Destroy(Qs, Q);
 							throw;
 						}
+
 						return (Q);
 					}
 					
