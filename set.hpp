@@ -79,10 +79,10 @@ namespace ft {
 				
 				~set(){};
 				
-				// Фича
-				void print_graph(){
-					tree.PrintGraphSet();
-				}
+				// // Фича
+				// void print_graph(){
+				// 	tree.PrintGraphSet();
+				// }
 
 				iterator begin() {
 					return (tree.begin());

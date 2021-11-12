@@ -4,6 +4,17 @@ namespace ft {
 
 		template <class tree_traits>
 			typename xtree<tree_traits>::iterator xtree<tree_traits>::erase (const_iterator F, const_iterator L) {
+				
+				if (F == begin() && L == end()) {
+					AllFree(Root);
+					Leaf->Parent = NIL;
+					Leaf->Left = NIL;
+					Leaf->Right = NIL;
+					Root = NIL;
+					Size = 0;
+					return (iterator(NIL));
+				}
+
 				while (F != L)
 					erase(F++);
 			return (iterator(find(Key(*F))));

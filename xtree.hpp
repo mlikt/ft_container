@@ -402,8 +402,8 @@ template <class tree_traits>
 			void AllFree(const nodeptr &node) {
 				if (node == NIL)
 					return ;
-					AllFree(Right(node));
 					AllFree(Left(node));
+					AllFree(Right(node));
 					DestructValue(node);
 					FreeNode(node);
 			}

@@ -97,9 +97,9 @@ namespace ft {
 				
 				~map(){};
 				// Фича
-				void print_graph(){
-					tree.PrintGraphMap();
-				}
+				// void print_graph(){
+				// 	tree.PrintGraphMap();
+				// }
 
 				iterator begin() {
 					return (tree.begin());

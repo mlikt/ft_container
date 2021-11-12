@@ -142,12 +142,12 @@ int main (void){
 	for (int i = 0; i < 10; i++)
 		set.insert(i);
 
-	set.print_graph();
+	// set.print_graph();
 	new_set.insert(set.begin(), set.end());
 
-	std::cout << RED "<---Graph set--->" RESETCOLOR << std::endl;
-	set.print_graph();
-	std::cout << RED "<---Graph set--->" RESETCOLOR << std::endl;
+	// std::cout << RED "<---Graph set--->" RESETCOLOR << std::endl;
+	// set.print_graph();
+	// std::cout << RED "<---Graph set--->" RESETCOLOR << std::endl;
 
 	ft::set<int>::iterator it = set.begin();
 
@@ -173,8 +173,8 @@ int main (void){
 	
 	it = new_set.erase(it, it1);
 
-	std::cout << RED "<---Graph new_set--->" RESETCOLOR << std::endl;
-	new_set.print_graph();
+	// std::cout << RED "<---Graph new_set--->" RESETCOLOR << std::endl;
+	// new_set.print_graph();
 
 	std::cout << *it << std::endl;
 
@@ -182,8 +182,8 @@ int main (void){
 
 	new_set.erase(it);
 
-	new_set.print_graph();
-	std::cout << RED "<---Graph new_set--->" RESETCOLOR << std::endl;
+	// new_set.print_graph();
+	// std::cout << RED "<---Graph new_set--->" RESETCOLOR << std::endl;
 
 	std::cout << "ft::max_size()  " << new_set.max_size() << std::endl;
 
@@ -256,7 +256,7 @@ int main (void){
 	it = set.upper_bound(21);
 
 
-	set.print_graph();
+	// set.print_graph();
 	std::cout << *it << std::endl;
 	std::cout << *std_it << std::endl;
 
@@ -292,9 +292,9 @@ int main (void){
 	for (; it != set.end(); it++ )
 			set_n1.insert(*it);
 
-	set_n1.print_graph();
+	// set_n1.print_graph();
 
-	set_n.print_graph();
+	// set_n.print_graph();
 
 
 	ft::set<int> n_set(set);
@@ -309,7 +309,7 @@ int main (void){
 		n_set.erase(i);
 	
 
-	n_set.print_graph();
+	// n_set.print_graph();
 
 	it = n_set.begin();
 	for (; it != n_set.end(); it++)
@@ -321,7 +321,7 @@ int main (void){
 	ex = n_set;
 	std::set<int> l;
 	
-	ex.print_graph();
+	// ex.print_graph();
 
 	if (ex <=  n_set)
 		std::cout << "Yes" << std::endl;

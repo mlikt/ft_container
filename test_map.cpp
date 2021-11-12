@@ -145,7 +145,6 @@ int main () {
 	for (int i = 0; i < 75; i += 3, a++)
 		map[i] = a, stdmap[i] = a;
 
-	map.print_graph();
 	assert(map.lower_bound(4)->first == stdmap.lower_bound(4)->first);
 	assert(map.upper_bound(30)->first == stdmap.upper_bound(30)->first);
 
@@ -153,5 +152,24 @@ int main () {
 
 	assert(map.equal_range(47).first->first == stdmap.equal_range(47).first->first);
 	assert(map.equal_range(47).second->first == stdmap.equal_range(47).second->first);
+
+	ft::map<int, char>::reverse_iterator rit(map.rbegin());
+	ft::map<int, char>::const_reverse_iterator crit = map.rbegin();
+
+	size = 0;
+
+	for (; rit != map.rend(); rit++)
+		size++;
+	assert(map.size() == size);
+
+	size = 0;
+	for (; crit != map.rend(); crit++)
+		size++;
+	assert(map.size() == size);
+
+	it = rit.base();
+	rit--;
+	rit->second = 'S';
+	assert(it == map.begin());
 	return (0);
 }
